@@ -10,11 +10,8 @@ gem "stimulus-rails"
 gem "tailwindcss-rails", "~> 4.6"
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]
-
 gem "solid_cache"
-
 gem "bootsnap", require: false
-
 gem "geocoder"
 
 group :development, :test do
