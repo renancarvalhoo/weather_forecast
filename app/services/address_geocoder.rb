@@ -16,8 +16,8 @@ class AddressGeocoder
 
   def locate
     result = search.first
-    raise AddressNotFound, "Couldn't find an address matching \"#{@address}\"" if result.nil?
-    raise AddressNotFound, "Couldn't determine a zip code for \"#{@address}\"" if result.postal_code.blank?
+    raise AddressNotFound, I18n.t("address_geocoder.not_found", address: @address) if result.nil?
+    raise AddressNotFound, I18n.t("address_geocoder.no_zip", address: @address) if result.postal_code.blank?
 
     Location.new(
       zip: result.postal_code,

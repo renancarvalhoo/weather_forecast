@@ -1,31 +1,56 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  app_name: "Weather Forecast"
+
+  forecasts:
+    show:
+      title: "Weather forecast"
+      intro: "Enter a US address to see the current conditions and the week ahead."
+      address: "Address"
+      address_placeholder: "350 5th Ave, New York, NY"
+      submit: "Get forecast"
+    forecast:
+      forecast_for: "Forecast for"
+      high: "High %{temperature}"
+      low: "Low %{temperature}"
+      extended: "7-day forecast"
+    cache_badge:
+      cached: "Cached for %{zip} · fetched %{age} ago · expires in %{remaining}"
+      fresh: "Fresh from Open-Meteo · cached for %{zip} for the next %{duration}"
+    errors:
+      service_unavailable: "The weather service is unavailable right now. Please try again in a moment."
+      rate_limited: "Too many requests. Please wait a minute and try again."
+
+  address_geocoder:
+    not_found: "Couldn't find an address matching \"%{address}\""
+    no_zip: "Couldn't determine a zip code for \"%{address}\""
+
+  weather:
+    unknown: "Unknown conditions"
+    "0": "Clear sky"
+    "1": "Mainly clear"
+    "2": "Partly cloudy"
+    "3": "Overcast"
+    "45": "Fog"
+    "48": "Freezing fog"
+    "51": "Light drizzle"
+    "53": "Drizzle"
+    "55": "Heavy drizzle"
+    "56": "Freezing drizzle"
+    "57": "Heavy freezing drizzle"
+    "61": "Light rain"
+    "63": "Rain"
+    "65": "Heavy rain"
+    "66": "Freezing rain"
+    "67": "Heavy freezing rain"
+    "71": "Light snow"
+    "73": "Snow"
+    "75": "Heavy snow"
+    "77": "Snow grains"
+    "80": "Light showers"
+    "81": "Showers"
+    "82": "Heavy showers"
+    "85": "Light snow showers"
+    "86": "Heavy snow showers"
+    "95": "Thunderstorm"
+    "96": "Thunderstorm with hail"
+    "99": "Thunderstorm with heavy hail"

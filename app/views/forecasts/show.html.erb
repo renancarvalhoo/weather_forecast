@@ -1,0 +1,21 @@
+<div class="min-h-screen bg-slate-50 text-slate-900">
+  <main class="mx-auto max-w-2xl px-4 py-12">
+    <h1 class="text-3xl font-semibold tracking-tight"><%= t(".title") %></h1>
+    <p class="mt-1 text-slate-600"><%= t(".intro") %></p>
+
+    <%= turbo_frame_tag "forecast", aria: { live: "polite" }, data: { turbo_action: "advance" } do %>
+      <%= form_with url: forecast_path, method: :get, class: "mt-6 flex gap-2" do |form| %>
+        <%= form.label :address, t(".address"), class: "sr-only" %>
+        <%= form.text_field :address, value: @address, placeholder: t(".address_placeholder"), required: true, autofocus: true,
+              class: "flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2.5 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200" %>
+        <%= form.submit t(".submit"), name: nil, class: "rounded-lg bg-sky-600 px-5 py-2.5 font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-300" %>
+      <% end %>
+
+      <% if @error %>
+        <%= render "error", message: @error %>
+      <% elsif @result %>
+        <%= render "forecast", location: @location, result: @result %>
+      <% end %>
+    <% end %>
+  </main>
+</div>
