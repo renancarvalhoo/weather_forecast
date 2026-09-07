@@ -51,3 +51,21 @@ The TTL is `expires_in: 30.minutes` on `Rails.cache.fetch`, and the `v1` in the 
 The cache holds Celsius, exactly what the API returns, and the view converts to Fahrenheit, so changing how temperatures are shown never invalidates a cache entry.
 
 The search is a GET because it's a lookup and the URL should be shareable. The form and the result live in one Turbo Frame, so Turbo swaps only that frame; without JavaScript it's a normal page load. The rate limit is 30 requests a minute per IP, using the Rails `rate_limit` line, because Nominatim blocks apps that exceed one request per second.
+
+## Things that bit me
+
+- "90210" came back as a village in Ukraine, because Nominatim searches the whole planet. I restricted lookups to the US.
+- The geocoder gem swallows timeouts and returns an empty array, so "Nominatim is down" looked the same as "address not found". `always_raise: :all` fixed it. The gem also sends anything that looks like an IP to a different service; `street_address: true` stops that.
+- After I turned on CSP, Turbo's progress bar stopped working. It injects an inline `<style>`, so `style-src` needs a nonce as well.
+- Turbo doesn't update the URL on a 422. I first read that as a bug. In practice it means a bad search doesn't end up in the browser history.
+
+## Limitations
+
+- US only.
+- Nominatim sometimes returns ZIP+4, which would become a separate cache entry.
+- If Open-Meteo is down and the cache has expired, you get a 503 rather than old data.
+- The rate limit is per IP, so anyone behind a proxy can get around it. It exists to be polite to Nominatim.
+
+## What I'd do next
+
+Show stale data with a warning when Open-Meteo is down. Add a °C/°F toggle. Write a system test for the frame swap, which I have only checked by hand in the browser so far.
